@@ -11,7 +11,7 @@ import Speech
 
 class ViewController: UIViewController,  SFSpeechRecognizerDelegate {
     
-    @IBOutlet weak var textSpeach: UITextField!
+    @IBOutlet weak var labelSpeach: UILabel!
     
     
     private let speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: "pt_BR"))!
@@ -19,6 +19,11 @@ class ViewController: UIViewController,  SFSpeechRecognizerDelegate {
     private var recognitionTask: SFSpeechRecognitionTask?
     private let audioEngine = AVAudioEngine()
     var speechResult = SFSpeechRecognitionResult()
+    
+    @IBAction func clear(_ sender: Any) {
+        labelSpeach.text = ""
+    }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -88,7 +93,7 @@ class ViewController: UIViewController,  SFSpeechRecognizerDelegate {
                 if let result = result {
                     print("result: \(result.isFinal)")
                     isFinal = result.isFinal
-                    self.textSpeach.text = result.bestTranscription.formattedString
+                    self.labelSpeach.text = result.bestTranscription.formattedString
                 }
                 
                 if error != nil || isFinal {
